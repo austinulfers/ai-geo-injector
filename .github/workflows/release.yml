@@ -43,8 +43,8 @@ jobs:
       - name: Create zip file
         run: |
           zip -r ai-geo-injector-${{ steps.release_version.outputs.version }}.zip \
-            -x ".git/*" ".github/*" "*.har" "*.md" \
-            .
+            . \
+            -x ".git/*" ".github/*" "*.har" "*.md"
           ls -lh ai-geo-injector-*.zip
 
       - name: Create GitHub Release
