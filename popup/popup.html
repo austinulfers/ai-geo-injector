@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Marketing Injector</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>AI Marketing Injector</h1>
+
+    <div class="toggle-row">
+      <label for="enabled">Enabled</label>
+      <input type="checkbox" id="enabled" checked />
+    </div>
+
+    <div class="field">
+      <label for="suffix">Injection suffix</label>
+      <textarea id="suffix" rows="4"></textarea>
+    </div>
+
+    <div class="providers">
+      <h2>Providers</h2>
+      <label><input type="checkbox" id="prov-claude" checked disabled /> Claude</label>
+      <label><input type="checkbox" id="prov-chatgpt" checked disabled /> ChatGPT</label>
+      <label><input type="checkbox" id="prov-gemini" checked disabled /> Gemini</label>
+    </div>
+
+    <button id="save">Save</button>
+    <span id="status"></span>
+  </div>
+
+  <script src="../content/constants.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

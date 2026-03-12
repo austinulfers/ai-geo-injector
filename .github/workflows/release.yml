@@ -1,0 +1,59 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (leave empty to use manifest.json version)'
+        required: false
+        type: string
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from manifest
+        id: version
+        run: |
+          MANIFEST_VERSION=$(grep '"version"' manifest.json | head -1 | sed 's/.*"version": "\([^"]*\)".*/\1/')
+          echo "manifest_version=$MANIFEST_VERSION" >> $GITHUB_OUTPUT
+          echo "Version from manifest: $MANIFEST_VERSION"
+
+      - name: Determine release version
+        id: release_version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          elif [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            VERSION="${{ github.ref }}" | sed 's/refs\/tags\/v//'
+          else
+            VERSION="${{ steps.version.outputs.manifest_version }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Create zip file
+        run: |
+          zip -r ai-marketing-extension-${{ steps.release_version.outputs.version }}.zip \
+            -x ".git/*" ".github/*" "*.har" "*.md" \
+            .
+          ls -lh ai-marketing-extension-*.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.release_version.outputs.version }}
+          name: Release ${{ steps.release_version.outputs.version }}
+          files: ai-marketing-extension-${{ steps.release_version.outputs.version }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
