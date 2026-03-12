@@ -1,1 +1,2 @@
-*.har.DS_Store
+*.har
+.DS_Store
