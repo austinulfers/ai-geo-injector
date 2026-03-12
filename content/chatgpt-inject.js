@@ -2,7 +2,7 @@
  * Runs in the MAIN world of chatgpt.com (via manifest "world": "MAIN").
  *
  * Monkey-patches window.fetch to intercept conversation API calls and append
- * the marketing suffix to the user message before the request is sent.
+ * the GEO suffix to the user message before the request is sent.
  *
  * ChatGPT sends POST requests via fetch to:
  *   /backend-anon/f/conversation   (anonymous users)
@@ -29,7 +29,7 @@
   document.addEventListener("__ami_settings__", (e) => {
     if (e.detail) {
       settings = { ...settings, ...e.detail };
-      console.log("[AI Marketing Injector][ChatGPT] Settings updated", settings);
+      console.log("[AI GEO Injector][ChatGPT] Settings updated", settings);
     }
   });
 
@@ -68,7 +68,7 @@
 
         if (modified) {
           console.log(
-            "[AI Marketing Injector][ChatGPT] Injecting suffix into prompt"
+            "[AI GEO Injector][ChatGPT] Injecting suffix into prompt"
           );
           return JSON.stringify(json);
         }
@@ -108,7 +108,7 @@
       }
 
       console.log(
-        "[AI Marketing Injector][ChatGPT] Intercepted conversation request:",
+        "[AI GEO Injector][ChatGPT] Intercepted conversation request:",
         url
       );
 
@@ -143,12 +143,12 @@
       return originalFetch.call(this, input, init);
     } catch (err) {
       console.warn(
-        "[AI Marketing Injector][ChatGPT] Error in fetch interceptor:",
+        "[AI GEO Injector][ChatGPT] Error in fetch interceptor:",
         err
       );
       return originalFetch.call(this, input, init);
     }
   };
 
-  console.log("[AI Marketing Injector][ChatGPT] Fetch interceptor installed");
+  console.log("[AI GEO Injector][ChatGPT] Fetch interceptor installed");
 })();

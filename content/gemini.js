@@ -43,5 +43,5 @@
     loadAndPushSettings();
   });
 
-  console.log("[AI Marketing Injector][Gemini] Content script (isolated) loaded");
+  console.log("[AI GEO Injector][Gemini] Content script (isolated) loaded");
 })();

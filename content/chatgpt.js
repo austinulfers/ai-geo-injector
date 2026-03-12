@@ -43,5 +43,5 @@
     loadAndPushSettings();
   });
 
-  console.log("[AI Marketing Injector][ChatGPT] Content script (isolated) loaded");
+  console.log("[AI GEO Injector][ChatGPT] Content script (isolated) loaded");
 })();

@@ -1,5 +1,5 @@
 /**
- * Shared constants for the AI Marketing Injector extension.
+ * Shared constants for the AI GEO Injector extension.
  * Used across all content scripts and the popup.
  */
 

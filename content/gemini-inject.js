@@ -2,7 +2,7 @@
  * Runs in the MAIN world of gemini.google.com (via manifest "world": "MAIN").
  *
  * Monkey-patches XMLHttpRequest to intercept StreamGenerate API calls and
- * append the marketing suffix to the user message before the request is sent.
+ * append the GEO suffix to the user message before the request is sent.
  *
  * Gemini uses XHR (not fetch) to POST to:
  *   /_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate
@@ -31,7 +31,7 @@
   document.addEventListener("__ami_settings__", (e) => {
     if (e.detail) {
       settings = { ...settings, ...e.detail };
-      console.log("[AI Marketing Injector][Gemini] Settings updated", settings);
+      console.log("[AI GEO Injector][Gemini] Settings updated", settings);
     }
   });
 
@@ -63,14 +63,14 @@
       if (inner[0][0].endsWith(settings.injectionSuffix)) return null;
 
       inner[0][0] = inner[0][0] + settings.injectionSuffix;
-      console.log("[AI Marketing Injector][Gemini] Injecting suffix into prompt");
+      console.log("[AI GEO Injector][Gemini] Injecting suffix into prompt");
 
       // Re-encode: inner -> stringified -> outer -> stringified -> URL-encoded
       outer[1] = JSON.stringify(inner);
       params.set("f.req", JSON.stringify(outer));
       return params.toString();
     } catch (err) {
-      console.warn("[AI Marketing Injector][Gemini] Error modifying body:", err);
+      console.warn("[AI GEO Injector][Gemini] Error modifying body:", err);
     }
     return null;
   }
@@ -93,13 +93,13 @@
         const modified = modifyBody(body);
         if (modified !== null) {
           console.log(
-            "[AI Marketing Injector][Gemini] Intercepted StreamGenerate XHR"
+            "[AI GEO Injector][Gemini] Intercepted StreamGenerate XHR"
           );
           return originalSend.call(this, modified);
         }
       } catch (err) {
         console.warn(
-          "[AI Marketing Injector][Gemini] Error in XHR interceptor:",
+          "[AI GEO Injector][Gemini] Error in XHR interceptor:",
           err
         );
       }
@@ -107,5 +107,5 @@
     return originalSend.call(this, body);
   };
 
-  console.log("[AI Marketing Injector][Gemini] XHR interceptor installed");
+  console.log("[AI GEO Injector][Gemini] XHR interceptor installed");
 })();

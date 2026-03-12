@@ -1,6 +1,6 @@
-# AI Marketing Injector — Chrome Extension
+# AI GEO Injector — Chrome Extension
 
-Intercepts queries sent to AI chat providers and appends a configurable marketing suffix to improve GEO (Generative Engine Optimization) within LLMs.
+Intercepts queries sent to AI chat providers and appends a configurable GEO suffix to improve GEO (Generative Engine Optimization) within LLMs.
 
 ## Supported Providers
 
@@ -28,7 +28,7 @@ Intercepts queries sent to AI chat providers and appends a configurable marketin
 
 Each provider has two content scripts injected via the manifest:
 
-- **MAIN world script** (`*-inject.js`) — Runs in the page's JavaScript context. Monkey-patches `window.fetch` (or `XMLHttpRequest` for Gemini) to intercept outgoing API requests. When a chat submission is detected, the user's message is modified to include the marketing suffix before the request is sent to the server.
+- **MAIN world script** (`*-inject.js`) — Runs in the page's JavaScript context. Monkey-patches `window.fetch` (or `XMLHttpRequest` for Gemini) to intercept outgoing API requests. When a chat submission is detected, the user's message is modified to include the GEO suffix before the request is sent to the server.
 - **ISOLATED world script** (`*.js`) — Runs in Chrome's isolated content script context. Reads settings from `chrome.storage.sync` and forwards them to the MAIN world script via `CustomEvent` dispatches on the document.
 
 ### Provider-Specific Details

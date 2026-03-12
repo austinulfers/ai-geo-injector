@@ -54,5 +54,5 @@
     loadAndPushSettings();
   });
 
-  console.log("[AI Marketing Injector] Content script (isolated) loaded");
+  console.log("[AI GEO Injector] Content script (isolated) loaded");
 })();

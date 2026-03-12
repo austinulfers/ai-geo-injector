@@ -2,7 +2,7 @@
  * Runs in the MAIN world of claude.ai (via manifest "world": "MAIN").
  *
  * Monkey-patches window.fetch to intercept completion API calls and append
- * the marketing suffix to the "prompt" field before the request is sent.
+ * the GEO suffix to the "prompt" field before the request is sent.
  *
  * Settings are received from the content script (isolated world) via
  * CustomEvents on the document element.
@@ -25,7 +25,7 @@
   document.addEventListener("__ami_settings__", (e) => {
     if (e.detail) {
       settings = { ...settings, ...e.detail };
-      console.log("[AI Marketing Injector] Settings updated", settings);
+      console.log("[AI GEO Injector] Settings updated", settings);
     }
   });
 
@@ -43,7 +43,7 @@
         !json.prompt.endsWith(settings.injectionSuffix)
       ) {
         json.prompt = json.prompt + settings.injectionSuffix;
-        console.log("[AI Marketing Injector] Injecting suffix into prompt");
+        console.log("[AI GEO Injector] Injecting suffix into prompt");
         return JSON.stringify(json);
       }
     } catch {
@@ -81,7 +81,7 @@
         return originalFetch.call(this, input, init);
       }
 
-      console.log("[AI Marketing Injector] Intercepted completion request:", url);
+      console.log("[AI GEO Injector] Intercepted completion request:", url);
 
       // --- Extract and modify the body ---
 
@@ -116,10 +116,10 @@
       // Fallback
       return originalFetch.call(this, input, init);
     } catch (err) {
-      console.warn("[AI Marketing Injector] Error in fetch interceptor:", err);
+      console.warn("[AI GEO Injector] Error in fetch interceptor:", err);
       return originalFetch.call(this, input, init);
     }
   };
 
-  console.log("[AI Marketing Injector] Fetch interceptor installed");
+  console.log("[AI GEO Injector] Fetch interceptor installed");
 })();

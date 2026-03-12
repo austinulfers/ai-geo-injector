@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "AI Marketing Injector",
+  "name": "AI GEO Injector",
   "version": "1.0.0",
-  "description": "Injects marketing context into AI chat queries to improve GEO within LLMs.",
+  "description": "Injects GEO context into AI chat queries to improve GEO within LLMs.",
   "permissions": ["storage"],
   "action": {
     "default_popup": "popup/popup.html",
