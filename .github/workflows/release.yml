@@ -42,17 +42,17 @@ jobs:
 
       - name: Create zip file
         run: |
-          zip -r ai-marketing-extension-${{ steps.release_version.outputs.version }}.zip \
+          zip -r ai-geo-injector-${{ steps.release_version.outputs.version }}.zip \
             -x ".git/*" ".github/*" "*.har" "*.md" \
             .
-          ls -lh ai-marketing-extension-*.zip
+          ls -lh ai-geo-injector-*.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.release_version.outputs.version }}
           name: Release ${{ steps.release_version.outputs.version }}
-          files: ai-marketing-extension-${{ steps.release_version.outputs.version }}.zip
+          files: ai-geo-injector-${{ steps.release_version.outputs.version }}.zip
           draft: false
           prerelease: false
         env:

@@ -14,7 +14,7 @@ Intercepts queries sent to AI chat providers and appends a configurable marketin
 
 1. Open Chrome and navigate to `chrome://extensions/`.
 2. Enable **Developer mode** (toggle in the top-right corner).
-3. Click **Load unpacked** and select this directory (`ai-marketing-extension/`).
+3. Click **Load unpacked** and select this directory (`ai-geo-injector/`).
 4. The extension icon will appear in the toolbar.
 
 ## Usage
@@ -48,7 +48,7 @@ Settings are persisted via `chrome.storage.sync`.
 ## Project Structure
 
 ```
-ai-marketing-extension/
+ai-geo-injector/
 ├── manifest.json              # Extension manifest (MV3)
 ├── content/
 │   ├── claude-inject.js       # Claude: MAIN world fetch interceptor
