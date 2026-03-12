@@ -8,8 +8,8 @@ on:
         required: false
         type: string
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
   create-release:
